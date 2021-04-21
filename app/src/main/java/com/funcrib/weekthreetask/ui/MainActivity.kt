@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     /*Method to Create Notification*/
     private fun addNotification() {
         /*Explicit intent to return to Main Activity in the app*/
@@ -59,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         /*Notification Builder*/
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_credit_card)
-            .setContentTitle("Bed Time")
-            .setContentText("It's Bed Time. Remember Early to Bed, Early to Rise")
+            .setContentTitle(getString(R.string.special_offer))
+            .setContentText("Check out the latest discounts from AliExpress")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
@@ -146,6 +145,10 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null)
             commit()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
 

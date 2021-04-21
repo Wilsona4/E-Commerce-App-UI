@@ -62,7 +62,7 @@ class ProductsFragment : Fragment() {
         val debitCards = debitCards.debitCardList
 
         /*Set-Up ViewPager Adapter*/
-        viewPagerAdapter = DebitCardPagerAdapter(debitCards)
+        viewPagerAdapter = DebitCardPagerAdapter(debitCards, viewPager)
 /*TODO comment later*/
         viewPager.apply {
             adapter = viewPagerAdapter
@@ -102,6 +102,7 @@ class ProductsFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = recyclerViewAdapter
     }
+
 
     companion object {
         /* Use this factory method to create a new instance of this fragment */

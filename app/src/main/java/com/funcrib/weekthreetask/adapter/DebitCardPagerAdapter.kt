@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.funcrib.weekthreetask.R
 import com.funcrib.weekthreetask.model.DebitCardModel
 import kotlinx.android.synthetic.main.debit_card_viewpager_item.view.*
 import kotlinx.android.synthetic.main.fragment_products.view.*
 
-class DebitCardPagerAdapter(private val debitCardList: ArrayList<DebitCardModel>) :
+class DebitCardPagerAdapter(private val debitCardList: ArrayList<DebitCardModel>, private val viewPager: ViewPager2) :
     RecyclerView.Adapter<DebitCardPagerAdapter.PagerViewHolder>() {
 
     /*Create the RecyclerView Holder*/
@@ -29,10 +30,12 @@ class DebitCardPagerAdapter(private val debitCardList: ArrayList<DebitCardModel>
 
     /*Create a view holder to display items*/
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
+        /*Implementing Runnable loop for infinite View Pager*/
+        if (position == debitCardList.size - 2) {
+            viewPager.post(runnable())
+        }
         holder.itemView.apply {
-//            if (position == debitCardList.size - 2) {
-//                view_pager.post(runnable)
-//            }
+
             /*Get the list and its data at each position and instantiate them*/
             val debitCard = debitCardList[position]
 
@@ -40,9 +43,8 @@ class DebitCardPagerAdapter(private val debitCardList: ArrayList<DebitCardModel>
             debit_card_name.text = debitCard.name
             debit_card_balance.text = debitCard.balance
 
-            /*Safe Casting to return Color Red if null*/
-            //debit_card.setBackgroundColor(debitCard.color)
-            debit_card.backgroundTintList  = ColorStateList.valueOf(ContextCompat.getColor(this.context, debitCard.color))
+            debit_card.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(this.context, debitCard.color))
 
             setOnClickListener {
                 Toast.makeText(
@@ -60,11 +62,9 @@ class DebitCardPagerAdapter(private val debitCardList: ArrayList<DebitCardModel>
     }
 
 
-//    private val runnable = Runnable {
-//         fun run (){
-//            debitCardList.addAll(debitCardList)
-//             notifyDataSetChanged()
-//        }
-//    }
+    private fun runnable() = Runnable {
+        debitCardList.addAll(debitCardList)
+        notifyDataSetChanged()
+    }
 
 }
